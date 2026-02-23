@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Campus Cravings — Order from campus</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<section class="hero">
+    <h1><span>Campus</span> Cravings</h1>
+    <p>Order from campus spots — faster and easier</p>
+</section>
+
+<main class="page" id="restaurants">
+    <h2 class="section-title">Order from</h2>
+    <div class="restaurant-grid">
+        <a href="coop.html" class="restaurant-card">
+            <p class="restaurant-card-name">The Coop</p>
+            <p class="restaurant-card-desc">Student Union · Gluten-free & halal</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+        <a href="earthwok.html" class="restaurant-card">
+            <p class="restaurant-card-name">Earth Wok and Fire</p>
+            <p class="restaurant-card-desc">Bowls, entrees & sides</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+        <a href="sambazon.html" class="restaurant-card">
+            <p class="restaurant-card-name">Sambazon Acai Bowls</p>
+            <p class="restaurant-card-desc">Small & regular bowls</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+        <a href="pompeii.html" class="restaurant-card">
+            <p class="restaurant-card-name">Pompeii Oven</p>
+            <p class="restaurant-card-desc">Union Street · Pizza, subs & pasta</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+        <a href="tostada.html" class="restaurant-card">
+            <p class="restaurant-card-name">Tostada Grill</p>
+            <p class="restaurant-card-desc">Union Street · Burritos & bowls</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+        <a href="soupmac.html" class="restaurant-card">
+            <p class="restaurant-card-name">Soup & Mac</p>
+            <p class="restaurant-card-desc">Union Street · Soups & mac and cheese</p>
+            <span class="restaurant-card-cta">View menu →</span>
+        </a>
+    </div>
+    <p class="live-menu-note" style="margin-top:1.5rem;">Union Street menus vary by day. <a href="union-live.html">View today’s live menu</a> from UConn Dining.</p>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Campus Cravings · Built at UConn</p>
+</footer>
+
+<script>
+(function() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var el = document.getElementById('cartCount');
+    if (el) el.textContent = count;
+})();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Pompeii Oven — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <div class="menu-header">
+        <a href="index.html#restaurants" class="back-link">← Restaurants</a>
+    </div>
+    <section class="restaurant-hero restaurant-hero--compact">
+        <img src="https://dining.media.uconn.edu/wp-content/uploads/sites/125/2023/12/Web_USM_Pompeii.jpg" alt="Pompeii Oven banner">
+        <div class="restaurant-hero-overlay">
+            <div class="restaurant-hero-meta">
+                <h1 class="menu-title">Pompeii Oven</h1>
+            </div>
+        </div>
+    </section>
+    <div class="menu-header">
+        <p class="menu-subtitle">Union Street Market · Pizza, subs & pasta</p>
+    </div>
+    <p class="live-menu-note">Menus vary by day. <a href="union-live.html">Live menu</a> · <a href="https://dining.uconn.edu/union-street-market/" target="_blank" rel="noopener">UConn Dining</a></p>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Pizza</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Cheese Pizza</span><span class="menu-item-price"> $3.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Cheese Pizza',3.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Pepperoni Pizza</span><span class="menu-item-price"> $4</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Pepperoni Pizza',4)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Gluten Free Pizza</span><span class="menu-item-price"> $7.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Gluten Free Pizza',7.50)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Subs & pasta</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">3 Garlic Knots with Dipping Sauce</span><span class="menu-item-price"> $7.95</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('3 Garlic Knots with Dipping Sauce',7.95)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chicken Parm Sub</span><span class="menu-item-price"> $7.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chicken Parm Sub',7.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chicken Parmesan</span><span class="menu-item-price"> $3.30</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chicken Parmesan',3.30)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Gluten Free Pasta w/ Marinara</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Gluten Free Pasta w/ Marinara',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Pasta & Alfredo Sauce</span><span class="menu-item-price"> $6.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Pasta & Alfredo Sauce',6.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Pasta and Marinara</span><span class="menu-item-price"> $6.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Pasta and Marinara',6.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Pasta and Grinder Extras</span><span class="menu-item-price"> $0.95</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Pasta and Grinder Extras',0.95)">Add</button></div></li>
+        </ul>
+    </section>
+
+    <div class="cart-bar" id="cartBar" style="display:none;">
+        <span class="cart-bar-text"><strong id="cartBarCount">0</strong> items · <strong id="cartBarTotal">$0.00</strong></span>
+        <a href="cart.html" class="btn-checkout">View cart</a>
+    </div>
+</main>
+
+<footer class="site-footer"><p>© 2026 Campus Cravings · Built at UConn</p></footer>
+
+<script>
+function animateCartCount() {
+    var countNav = document.getElementById('cartCount');
+    if (!countNav) return;
+    countNav.classList.remove('pop');
+    void countNav.offsetWidth;
+    countNav.classList.add('pop');
+}
+function animateAddFeedback(btn) {
+    if (!btn) return;
+    var originalText = btn.textContent;
+    btn.classList.add('is-added');
+    btn.textContent = 'Added ✓';
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.textContent = originalText;
+        btn.classList.remove('is-added');
+        btn.disabled = false;
+    }, 700);
+}
+function addToCart(name, price) {
+    var triggerBtn = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('btn-add') ? document.activeElement : null;
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var found = cart.find(function(i) { return i.name === name && i.price === price; });
+    if (found) found.quantity = (found.quantity || 1) + 1;
+    else cart.push({name: name, price: price, quantity: 1});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBar();
+    animateAddFeedback(triggerBtn);
+    animateCartCount();
+}
+function updateCartBar() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var total = cart.reduce(function(s, i) { return s + i.price * (i.quantity || 1); }, 0);
+    var bar = document.getElementById('cartBar');
+    document.getElementById('cartCount').textContent = count;
+    if (count > 0) { bar.style.display = 'flex'; document.getElementById('cartBarCount').textContent = count; document.getElementById('cartBarTotal').textContent = '$' + total.toFixed(2); } else bar.style.display = 'none';
+}
+updateCartBar();
+</script>
+
+</body>
+</html>

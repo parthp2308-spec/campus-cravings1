@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Union Street Live Menu — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <p class="live-menu-note">Today’s Union Street Market menu from UConn Dining. Use the date links inside the frame to change days.</p>
+    <div class="iframe-wrap">
+        <iframe id="menuFrame" title="UConn Union Street Market menu"></iframe>
+        <p>If the menu doesn’t load, <a href="#" id="openTab">open it in a new tab</a>.</p>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Campus Cravings · Built at UConn</p>
+</footer>
+
+<script>
+(function() {
+    var d = new Date();
+    var dt = (d.getMonth()+1) + '/' + d.getDate() + '/' + d.getFullYear();
+    var url = 'https://nutritionanalysis.dds.uconn.edu/shortmenu.aspx?sName=UCONN+Dining+Services&locationNum=43&locationName=Union+Street+Market&naFlag=1&WeeksMenus=This+Week%27s+Menus&myaction=read&dtdate=' + encodeURIComponent(dt);
+    document.getElementById('menuFrame').src = url;
+    document.getElementById('openTab').href = url;
+})();
+var cart = JSON.parse(localStorage.getItem('cart')) || [];
+var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+var el = document.getElementById('cartCount');
+if (el) el.textContent = count;
+</script>
+
+</body>
+</html>

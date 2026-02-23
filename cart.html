@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Your cart — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <h1 class="section-title" style="margin-bottom:1rem;">Your order</h1>
+    <button type="button" id="clearCartBtn" class="btn-clear-cart" style="display:none;">Clear whole cart</button>
+    <div id="cartContainer" class="cart-list"></div>
+    <div id="cartSummary" class="cart-summary" style="display:none;">
+        <div class="cart-summary-row total">Total <span id="total">$0.00</span></div>
+    </div>
+    <div id="cartEmpty" class="cart-empty" style="display:none;">
+        <p>Your cart is empty.</p>
+        <a href="index.html#restaurants">Browse restaurants</a>
+    </div>
+    <a href="checkout.html" id="checkoutBtn" class="btn-checkout-page" style="display:none;">Proceed to checkout</a>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Campus Cravings · Built at UConn</p>
+</footer>
+
+<script>
+var cart = JSON.parse(localStorage.getItem('cart')) || [];
+var container = document.getElementById('cartContainer');
+var summary = document.getElementById('cartSummary');
+var empty = document.getElementById('cartEmpty');
+var checkoutBtn = document.getElementById('checkoutBtn');
+var clearCartBtn = document.getElementById('clearCartBtn');
+var totalEl = document.getElementById('total');
+var countEl = document.getElementById('cartCount');
+
+function normalizeCart() {
+    var seen = {};
+    var out = [];
+    cart.forEach(function(item) {
+        var qty = item.quantity > 0 ? item.quantity : 1;
+        var key = item.name + '|' + item.price;
+        if (seen[key] !== undefined) {
+            out[seen[key]].quantity += qty;
+        } else {
+            seen[key] = out.length;
+            out.push({ name: item.name, price: item.price, quantity: qty });
+        }
+    });
+    cart = out;
+    localStorage.setItem('cart', JSON.stringify(cart));
+}
+
+function itemCount() {
+    return cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+}
+function cartTotal() {
+    return cart.reduce(function(s, i) { return s + (i.price * (i.quantity || 1)); }, 0);
+}
+
+function updateCart() {
+    var total = cartTotal();
+    var count = itemCount();
+    if (countEl) countEl.textContent = count;
+    if (cart.length === 0) {
+        summary.style.display = 'none';
+        checkoutBtn.style.display = 'none';
+        if (clearCartBtn) clearCartBtn.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+    }
+    empty.style.display = 'none';
+    summary.style.display = 'block';
+    checkoutBtn.style.display = 'block';
+    if (clearCartBtn) clearCartBtn.style.display = 'inline-block';
+    if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+}
+
+function changeQty(index, delta) {
+    var item = cart[index];
+    item.quantity = (item.quantity || 1) + delta;
+    if (item.quantity < 1) {
+        cart.splice(index, 1);
+    }
+    localStorage.setItem('cart', JSON.stringify(cart));
+    render();
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    render();
+}
+
+function clearCart() {
+    if (!confirm('Remove all items from your cart?')) return;
+    cart = [];
+    localStorage.setItem('cart', JSON.stringify(cart));
+    render();
+}
+
+function render() {
+    normalizeCart();
+    container.innerHTML = '';
+    cart.forEach(function(item, index) {
+        var qty = item.quantity || 1;
+        var rowTotal = (item.price * qty).toFixed(2);
+        var div = document.createElement('div');
+        div.className = 'cart-item';
+        div.innerHTML =
+            '<span class="cart-item-info">' + item.name + ' — $' + item.price.toFixed(2) + '</span>' +
+            '<div class="cart-item-qty">' +
+            '<button type="button" aria-label="Decrease">−</button>' +
+            '<span>' + qty + '</span>' +
+            '<button type="button" aria-label="Increase">+</button>' +
+            '</div>' +
+            '<span class="cart-item-info" style="flex:0;min-width:auto;">$' + rowTotal + '</span>' +
+            '<button type="button" class="cart-item-remove" aria-label="Remove">×</button>';
+        div.querySelector('.cart-item-qty button[aria-label="Decrease"]').onclick = function() { changeQty(index, -1); };
+        div.querySelector('.cart-item-qty button[aria-label="Increase"]').onclick = function() { changeQty(index, 1); };
+        div.querySelector('.cart-item-remove').onclick = function() { removeItem(index); };
+        container.appendChild(div);
+    });
+    updateCart();
+}
+
+normalizeCart();
+render();
+if (clearCartBtn) clearCartBtn.onclick = clearCart;
+</script>
+
+</body>
+</html>

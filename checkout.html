@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Checkout — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page" style="padding-top:1.5rem;">
+    <h1 class="section-title" style="margin-bottom:1.25rem;">Checkout</h1>
+
+    <div id="checkoutEmpty" class="cart-empty" style="display:none;">
+        <p>Your cart is empty.</p>
+        <a href="index.html#restaurants">Browse restaurants</a>
+    </div>
+
+    <div class="checkout-layout" id="checkoutForm">
+        <!-- Delivery details -->
+        <div class="checkout-block">
+            <h2>Delivery details</h2>
+            <label for="name">Name</label>
+            <input type="text" id="name" placeholder="Your name" autocomplete="name">
+            <label for="phone">Phone</label>
+            <input type="tel" id="phone" placeholder="(555) 123-4567" autocomplete="tel">
+            <label for="location">Delivery location</label>
+            <input type="text" id="location" placeholder="e.g. Hilltop Apartments, Room 204" autocomplete="street-address">
+        </div>
+
+        <!-- Order summary -->
+        <div class="checkout-block">
+            <h2>Order summary</h2>
+            <ul class="checkout-order-list" id="orderList"></ul>
+            <div class="checkout-totals">
+                <div class="row"><span>Subtotal</span><span id="subtotal">$0.00</span></div>
+                <div class="row"><span>Delivery</span><span id="deliveryFee">$0.00</span></div>
+                <div class="row"><span>Tax (est.)</span><span id="tax">$0.00</span></div>
+                <div class="row total"><span>Total</span><span id="total">$0.00</span></div>
+            </div>
+        </div>
+
+        <!-- Payment -->
+        <div class="checkout-block">
+            <h2>Payment</h2>
+            <div class="payment-option selected" data-method="card" onclick="selectPayment('card')">
+                <input type="radio" name="payment" id="payCard" value="card" checked>
+                <label for="payCard">Credit / debit card</label>
+            </div>
+            <div id="cardFields" class="card-fields">
+                <label for="cardNumber">Card number</label>
+                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                <div class="checkout-row">
+                    <div class="field">
+                        <label for="expiry">Expiry</label>
+                        <input type="text" id="expiry" placeholder="MM/YY" maxlength="5">
+                    </div>
+                    <div class="field">
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" placeholder="123" maxlength="4">
+                    </div>
+                </div>
+                <label for="zip">Billing ZIP</label>
+                <input type="text" id="zip" placeholder="06269">
+            </div>
+
+            <div class="payment-option" data-method="venmo" onclick="selectPayment('venmo')">
+                <input type="radio" name="payment" id="payVenmo" value="venmo">
+                <label for="payVenmo">Venmo</label>
+            </div>
+            <div id="venmoDetail" class="venmo-detail" style="display:none;">
+                Send payment to <strong>@Parth-Pawar-2</strong> for the order total. Include your name in the payment note.
+                <br><a href="https://venmo.com/Parth-Pawar-2" target="_blank" rel="noopener">Pay @Parth-Pawar-2 on Venmo →</a>
+                <p style="margin:0.5rem 0 0 0;font-size:0.8rem;opacity:0.9;">Payments go to @Parth-Pawar-2. To get the money into your bank account, open the Venmo app → Transfer → Bank.</p>
+            </div>
+
+            <button type="button" class="btn-place-order" onclick="placeOrder()">Place order</button>
+        </div>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Campus Cravings · Built at UConn</p>
+</footer>
+
+<script>
+(function() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var el = document.getElementById('cartCount');
+    if (el) el.textContent = count;
+})();
+
+var cart = JSON.parse(localStorage.getItem('cart')) || [];
+var DELIVERY_FEE = 1.99;
+var TAX_RATE = 0.0635;
+
+function subtotal() {
+    return cart.reduce(function(s, i) { return s + i.price * (i.quantity || 1); }, 0);
+}
+function delivery() { return cart.length > 0 ? DELIVERY_FEE : 0; }
+function tax() { return (subtotal() + delivery()) * TAX_RATE; }
+function total() { return subtotal() + delivery() + tax(); }
+
+function renderSummary() {
+    if (cart.length === 0) {
+        document.getElementById('checkoutEmpty').style.display = 'block';
+        document.getElementById('checkoutForm').style.display = 'none';
+        return;
+    }
+    document.getElementById('checkoutEmpty').style.display = 'none';
+    document.getElementById('checkoutForm').style.display = 'flex';
+    var list = document.getElementById('orderList');
+    var st = document.getElementById('subtotal');
+    var df = document.getElementById('deliveryFee');
+    var tx = document.getElementById('tax');
+    var tot = document.getElementById('total');
+    list.innerHTML = '';
+    cart.forEach(function(item) {
+        var qty = item.quantity || 1;
+        var lineTotal = item.price * qty;
+        var label = qty > 1 ? item.name + ' ×' + qty : item.name;
+        var li = document.createElement('li');
+        li.innerHTML = '<span>' + label + '</span><span>$' + lineTotal.toFixed(2) + '</span>';
+        list.appendChild(li);
+    });
+    if (st) st.textContent = '$' + subtotal().toFixed(2);
+    if (df) df.textContent = '$' + delivery().toFixed(2);
+    if (tx) tx.textContent = '$' + tax().toFixed(2);
+    if (tot) tot.textContent = '$' + total().toFixed(2);
+}
+
+function selectPayment(method) {
+    document.querySelectorAll('.payment-option').forEach(function(el) { el.classList.remove('selected'); });
+    var opt = document.querySelector('.payment-option[data-method="' + method + '"]');
+    if (opt) opt.classList.add('selected');
+    document.getElementById('payCard').checked = method === 'card';
+    document.getElementById('payVenmo').checked = method === 'venmo';
+    document.getElementById('cardFields').style.display = method === 'card' ? 'block' : 'none';
+    document.getElementById('venmoDetail').style.display = method === 'venmo' ? 'block' : 'none';
+}
+
+function placeOrder() {
+    var name = (document.getElementById('name') && document.getElementById('name').value.trim()) || 'Guest';
+    var locationVal = (document.getElementById('location') && document.getElementById('location').value.trim()) || 'Campus';
+    var method = document.getElementById('payVenmo').checked ? 'Venmo' : 'Card';
+    var msg = 'Order placed! (Demo)\n\n';
+    msg += 'Delivery to: ' + name + ' at ' + locationVal + '\n';
+    msg += 'Total: $' + total().toFixed(2) + '\n';
+    if (method === 'Venmo') msg += 'Pay @Parth-Pawar-2 on Venmo for this amount.';
+    else msg += 'Payment by card (demo — no charge).';
+    alert(msg);
+    localStorage.removeItem('cart');
+    window.location.href = 'index.html';
+}
+
+renderSummary();
+selectPayment('card');
+</script>
+
+</body>
+</html>

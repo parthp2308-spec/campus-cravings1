@@ -1,0 +1,210 @@
+openapi: 3.0.3
+info:
+  title: Campus Cravings API
+  version: 1.0.0
+servers:
+  - url: http://localhost:4000/api
+paths:
+  /auth/register:
+    post:
+      summary: Register user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [name, email, password]
+              properties:
+                name: { type: string }
+                email: { type: string, format: email }
+                password: { type: string, minLength: 8 }
+                role: { type: string, enum: [student, restaurant, admin] }
+      responses:
+        '201':
+          description: Registered
+  /auth/login:
+    post:
+      summary: Login user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [email, password]
+              properties:
+                email: { type: string }
+                password: { type: string }
+      responses:
+        '200':
+          description: Logged in
+  /restaurants:
+    get:
+      summary: List restaurants
+      responses:
+        '200':
+          description: OK
+  /restaurants/{id}:
+    get:
+      summary: Get restaurant
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /restaurants/{id}/menu:
+    get:
+      summary: Get menu for restaurant
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /menu:
+    post:
+      summary: Create menu item (admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '201': { description: Created }
+  /menu/{id}:
+    put:
+      summary: Update menu item (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: Updated }
+    delete:
+      summary: Delete menu item (admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '204': { description: Deleted }
+  /orders:
+    post:
+      summary: Place an order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [userId, restaurantId, deliveryName, deliveryPhone, deliveryAddress, items]
+              properties:
+                userId: { type: string, format: uuid }
+                restaurantId: { type: string, format: uuid }
+                deliveryName: { type: string }
+                deliveryPhone: { type: string }
+                deliveryAddress: { type: string }
+                deliveryInstructions: { type: string }
+                items:
+                  type: array
+                  items:
+                    type: object
+                    required: [menuItemId, quantity]
+                    properties:
+                      menuItemId: { type: string, format: uuid }
+                      quantity: { type: integer, minimum: 1 }
+      responses:
+        '201': { description: Created }
+  /orders/{userId}:
+    get:
+      summary: Get orders by user
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: userId
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /orders/restaurant/{id}:
+    get:
+      summary: Get restaurant orders
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: OK }
+  /orders/{id}/status:
+    patch:
+      summary: Update order status
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: Updated }
+  /orders/{id}/cancel:
+    patch:
+      summary: Cancel own pending unpaid order
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: Canceled }
+  /payments/orders/{id}/refund:
+    patch:
+      summary: Admin refund for a paid order
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema: { type: string, format: uuid }
+      responses:
+        '200': { description: Refunded }
+  /payments/checkout-session:
+    post:
+      summary: Create Stripe checkout session for an order
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [orderId]
+              properties:
+                orderId:
+                  type: string
+                  format: uuid
+      responses:
+        '201': { description: Created }
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Tostada Grill — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <div class="menu-header">
+        <a href="index.html#restaurants" class="back-link">← Restaurants</a>
+    </div>
+    <section class="restaurant-hero restaurant-hero--compact">
+        <img src="https://dining.media.uconn.edu/wp-content/uploads/sites/125/2023/12/Web_USM_Tostada-1.jpg" alt="Tostada Grill banner">
+        <div class="restaurant-hero-overlay">
+            <div class="restaurant-hero-meta">
+                <h1 class="menu-title">Tostada Grill</h1>
+            </div>
+        </div>
+    </section>
+    <div class="menu-header">
+        <p class="menu-subtitle">Union Street Market · Burritos, salads & bowls</p>
+    </div>
+    <p class="live-menu-note">Menus vary by day. <a href="union-live.html">Live menu</a> · <a href="https://dining.uconn.edu/union-street-market/" target="_blank" rel="noopener">UConn Dining</a></p>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Burritos</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Beef Burrito</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Beef Burrito',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chicken Burrito</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chicken Burrito',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Veggie Bean Burrito</span><span class="menu-item-price"> $7.99</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Veggie Bean Burrito',7.99)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Taco salads</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Beef Taco Salad</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Beef Taco Salad',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chicken Taco Salad</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chicken Taco Salad',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Vegetarian Taco Salad</span><span class="menu-item-price"> $7.99</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Vegetarian Taco Salad',7.99)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Veggie Bean Taco Salad</span><span class="menu-item-price"> $7.99</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Veggie Bean Taco Salad',7.99)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Naked bowls</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Naked Beef Bowl</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Naked Beef Bowl',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Naked Chicken Bowl</span><span class="menu-item-price"> $8.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Naked Chicken Bowl',8.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Naked Vegetarian Tex Mex Bowl</span><span class="menu-item-price"> $7.99</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Naked Vegetarian Tex Mex Bowl',7.99)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Naked Veggie Bean Bowl</span><span class="menu-item-price"> $7.99</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Naked Veggie Bean Bowl',7.99)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Sides & extras</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chips and Guacamole</span><span class="menu-item-price"> $4.95</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chips and Guacamole',4.95)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Chips and Salsa</span><span class="menu-item-price"> $4.65</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chips and Salsa',4.65)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Queso & Chips</span><span class="menu-item-price"> $4.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Queso & Chips',4.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Tortilla Chips (Side)</span><span class="menu-item-price"> $2.75</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Tortilla Chips (Side)',2.75)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Extra Guacamole</span><span class="menu-item-price"> $2</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Extra Guacamole',2)">Add</button></div></li>
+        </ul>
+    </section>
+
+    <div class="cart-bar" id="cartBar" style="display:none;">
+        <span class="cart-bar-text"><strong id="cartBarCount">0</strong> items · <strong id="cartBarTotal">$0.00</strong></span>
+        <a href="cart.html" class="btn-checkout">View cart</a>
+    </div>
+</main>
+
+<footer class="site-footer"><p>© 2026 Campus Cravings · Built at UConn</p></footer>
+
+<script>
+function animateCartCount() {
+    var countNav = document.getElementById('cartCount');
+    if (!countNav) return;
+    countNav.classList.remove('pop');
+    void countNav.offsetWidth;
+    countNav.classList.add('pop');
+}
+function animateAddFeedback(btn) {
+    if (!btn) return;
+    var originalText = btn.textContent;
+    btn.classList.add('is-added');
+    btn.textContent = 'Added ✓';
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.textContent = originalText;
+        btn.classList.remove('is-added');
+        btn.disabled = false;
+    }, 700);
+}
+function addToCart(name, price) {
+    var triggerBtn = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('btn-add') ? document.activeElement : null;
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var found = cart.find(function(i) { return i.name === name && i.price === price; });
+    if (found) found.quantity = (found.quantity || 1) + 1;
+    else cart.push({name: name, price: price, quantity: 1});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBar();
+    animateAddFeedback(triggerBtn);
+    animateCartCount();
+}
+function updateCartBar() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var total = cart.reduce(function(s, i) { return s + i.price * (i.quantity || 1); }, 0);
+    var bar = document.getElementById('cartBar');
+    document.getElementById('cartCount').textContent = count;
+    if (count > 0) { bar.style.display = 'flex'; document.getElementById('cartBarCount').textContent = count; document.getElementById('cartBarTotal').textContent = '$' + total.toFixed(2); } else bar.style.display = 'none';
+}
+updateCartBar();
+</script>
+
+</body>
+</html>

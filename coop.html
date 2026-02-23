@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Coop — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <div class="menu-header">
+        <a href="index.html#restaurants" class="back-link">← Restaurants</a>
+    </div>
+    <section class="restaurant-hero restaurant-hero--compact">
+        <img src="https://dining.media.uconn.edu/wp-content/uploads/sites/125/2025/08/TheCoop_Logo-scaled.png" alt="The Coop logo">
+        <div class="restaurant-hero-overlay">
+            <div class="restaurant-hero-meta">
+                <h1 class="menu-title">The Coop</h1>
+                <div class="restaurant-hero-details">
+                    <span class="hero-pill">Gluten-free & halal</span>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="menu-header">
+        <p class="menu-subtitle">Campus favorite for tenders, wraps, and quick bites.</p>
+    </div>
+    <p class="live-menu-note">Official page: <a href="https://dining.uconn.edu/the-coop/" target="_blank" rel="noopener">UConn Dining — The Coop</a></p>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Tenders</h2>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Small Tenders (3)</span><span class="menu-item-price"> $6</span><div class="desc">Crispy halal chicken with gluten-free breading.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Small Tenders (3)',6)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Small Tenders w/ Fries</span><span class="menu-item-price"> $8</span><div class="desc">Three tenders with seasoned fries and house dip.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Small Tenders w/ Fries',8)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Large Tenders (6)</span><span class="menu-item-price"> $11</span><div class="desc">Double portion, golden-fried and cooked to order.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Large Tenders (6)',11)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Large Tenders w/ Fries</span><span class="menu-item-price"> $13</span><div class="desc">Six tenders paired with a full side of fries.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Large Tenders w/ Fries',13)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Fries</span><span class="menu-item-price"> $3</span><div class="desc">Crispy straight-cut fries with sea salt.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Fries',3)">Add</button></div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Wraps</h2>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Chicken Wrap</span><span class="menu-item-price"> $9</span><div class="desc">Grilled chicken, greens, and creamy garlic sauce.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Chicken Wrap',9)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Wrap w/ Fries</span><span class="menu-item-price"> $10.50</span><div class="desc">A full wrap served with crispy fries.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Wrap w/ Fries',10.5)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Gluten Free Wrap</span><span class="menu-item-price"> $10</span><div class="desc">Tender chicken and veggies in a gluten-free wrap.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Gluten Free Wrap',10)">Add</button></div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">GF Wrap w/ Fries</span><span class="menu-item-price"> $11.50</span><div class="desc">Gluten-free wrap plus fries and dipping sauce.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('GF Wrap w/ Fries',11.5)">Add</button></div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Drinks</h2>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Fountain Drink</span><span class="menu-item-price"> $1.95</span><div class="desc">Choose Coke, Sprite, lemonade, or more.</div></div>
+                <div class="menu-item-actions">
+                    <select id="fountainDrinkType">
+                        <option value="Coke">Coke</option>
+                        <option value="Diet Coke">Diet Coke</option>
+                        <option value="Lemonade">Lemonade</option>
+                        <option value="Sprite">Sprite</option>
+                    </select>
+                    <button type="button" class="btn-add" onclick="addFountainDrink()">Add</button>
+                </div>
+            </li>
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Dasani Water</span><span class="menu-item-price"> $2.25</span><div class="desc">Chilled bottled water.</div></div>
+                <div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Dasani Water',2.25)">Add</button></div>
+            </li>
+        </ul>
+    </section>
+
+    <div class="cart-bar" id="cartBar" style="display:none;">
+        <span class="cart-bar-text"><strong id="cartBarCount">0</strong> items · <strong id="cartBarTotal">$0.00</strong></span>
+        <a href="cart.html" class="btn-checkout">View cart</a>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <p>© 2026 Campus Cravings · Built at UConn</p>
+</footer>
+
+<script>
+function animateCartCount() {
+    var countNav = document.getElementById('cartCount');
+    if (!countNav) return;
+    countNav.classList.remove('pop');
+    void countNav.offsetWidth;
+    countNav.classList.add('pop');
+}
+function animateAddFeedback(btn) {
+    if (!btn) return;
+    var originalText = btn.textContent;
+    btn.classList.add('is-added');
+    btn.textContent = 'Added ✓';
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.textContent = originalText;
+        btn.classList.remove('is-added');
+        btn.disabled = false;
+    }, 700);
+}
+function addToCart(name, price) {
+    var triggerBtn = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('btn-add') ? document.activeElement : null;
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var found = cart.find(function(i) { return i.name === name && i.price === price; });
+    if (found) found.quantity = (found.quantity || 1) + 1;
+    else cart.push({name: name, price: price, quantity: 1});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBar();
+    animateAddFeedback(triggerBtn);
+    animateCartCount();
+}
+function addFountainDrink() {
+    var type = document.getElementById('fountainDrinkType').value;
+    addToCart('Fountain Drink (' + type + ')', 1.95);
+}
+function updateCartBar() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var total = cart.reduce(function(s, i) { return s + i.price * (i.quantity || 1); }, 0);
+    var bar = document.getElementById('cartBar');
+    var countEl = document.getElementById('cartBarCount');
+    var totalEl = document.getElementById('cartBarTotal');
+    var countNav = document.getElementById('cartCount');
+    if (countNav) countNav.textContent = count;
+    if (count > 0) {
+        bar.style.display = 'flex';
+        if (countEl) countEl.textContent = count;
+        if (totalEl) totalEl.textContent = '$' + total.toFixed(2);
+    } else {
+        bar.style.display = 'none';
+    }
+}
+updateCartBar();
+</script>
+
+</body>
+</html>

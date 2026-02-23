@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Earth Wok and Fire — Campus Cravings</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="topbar">
+    <a href="index.html" class="topbar-logo">Campus <span>Cravings</span></a>
+    <nav class="topbar-nav">
+        <a href="index.html#restaurants">Restaurants</a>
+        <a href="cart.html" class="topbar-cart">Cart <span class="cart-count" id="cartCount">0</span></a>
+    </nav>
+</header>
+
+<main class="page">
+    <div class="menu-header">
+        <a href="index.html#restaurants" class="back-link">← Restaurants</a>
+    </div>
+    <section class="restaurant-hero restaurant-hero--compact">
+        <img src="https://dining.media.uconn.edu/wp-content/uploads/sites/125/2023/12/coverewok.jpg" alt="Earth Wok and Fire banner">
+        <div class="restaurant-hero-overlay">
+            <div class="restaurant-hero-meta">
+                <h1 class="menu-title">Earth Wok and Fire</h1>
+            </div>
+        </div>
+    </section>
+    <div class="menu-header">
+        <p class="menu-subtitle">Bowls, entrees & sides</p>
+    </div>
+    <p class="live-menu-note">Official page: <a href="https://dining.uconn.edu/earth-wok-and-fire/" target="_blank" rel="noopener">UConn Dining — Earth Wok and Fire</a></p>
+
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Entrees</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">General Tso Chicken</span><span class="menu-item-price"> $9.75</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('General Tso Chicken',9.75)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Teriyaki Beef</span><span class="menu-item-price"> $11.25</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Teriyaki Beef',11.25)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Sriracha Chicken</span><span class="menu-item-price"> $10.75</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Sriracha Chicken',10.75)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Vegetable Lo Mein</span><span class="menu-item-price"> $9.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Vegetable Lo Mein',9.50)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Lunch bowls</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">General Tso's Chicken Bowl</span><span class="menu-item-price"> $7</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('General Tso\'s Chicken Bowl',7)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Sriracha Chicken Bowl</span><span class="menu-item-price"> $7.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Sriracha Chicken Bowl',7.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Teriyaki Beef Bowl</span><span class="menu-item-price"> $7.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Teriyaki Beef Bowl',7.50)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Sides & extras</h2>
+        <ul class="menu-list">
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">White Sticky Rice</span><span class="menu-item-price"> $2.95</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('White Sticky Rice',2.95)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Vegetable Fried Rice</span><span class="menu-item-price"> $3.60</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Vegetable Fried Rice',3.60)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Vegetable Lo Mein (side)</span><span class="menu-item-price"> $4.50</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Vegetable Lo Mein (side)',4.50)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Egg Roll (1)</span><span class="menu-item-price"> $2.75</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Egg Roll (1)',2.75)">Add</button></div></li>
+            <li class="menu-item"><div class="menu-item-left"><span class="menu-item-name">Egg Roll (2)</span><span class="menu-item-price"> $4.75</span></div><div class="menu-item-actions"><button type="button" class="btn-add" onclick="addToCart('Egg Roll (2)',4.75)">Add</button></div></li>
+        </ul>
+    </section>
+    <section class="menu-section">
+        <h2 class="menu-section-heading">Drinks</h2>
+        <ul class="menu-list">
+            <li class="menu-item">
+                <div class="menu-item-left"><span class="menu-item-name">Fountain Drink</span><span class="menu-item-price"> $1.95</span></div>
+                <div class="menu-item-actions">
+                    <select id="earthwokDrinkType">
+                        <option value="Coke">Coke</option>
+                        <option value="Diet Coke">Diet Coke</option>
+                        <option value="Sprite">Sprite</option>
+                        <option value="Fuze Lemon Iced Tea">Fuze Lemon Iced Tea</option>
+                        <option value="Ginger Ale">Ginger Ale</option>
+                        <option value="Minute Maid Lemonade">Minute Maid Lemonade</option>
+                    </select>
+                    <button type="button" class="btn-add" onclick="addEarthwokDrink()">Add</button>
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <div class="cart-bar" id="cartBar" style="display:none;">
+        <span class="cart-bar-text"><strong id="cartBarCount">0</strong> items · <strong id="cartBarTotal">$0.00</strong></span>
+        <a href="cart.html" class="btn-checkout">View cart</a>
+    </div>
+</main>
+
+<footer class="site-footer"><p>© 2026 Campus Cravings · Built at UConn</p></footer>
+
+<script>
+function animateCartCount() {
+    var countNav = document.getElementById('cartCount');
+    if (!countNav) return;
+    countNav.classList.remove('pop');
+    void countNav.offsetWidth;
+    countNav.classList.add('pop');
+}
+function animateAddFeedback(btn) {
+    if (!btn) return;
+    var originalText = btn.textContent;
+    btn.classList.add('is-added');
+    btn.textContent = 'Added ✓';
+    btn.disabled = true;
+    setTimeout(function() {
+        btn.textContent = originalText;
+        btn.classList.remove('is-added');
+        btn.disabled = false;
+    }, 700);
+}
+function addToCart(name, price) {
+    var triggerBtn = document.activeElement && document.activeElement.classList && document.activeElement.classList.contains('btn-add') ? document.activeElement : null;
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var found = cart.find(function(i) { return i.name === name && i.price === price; });
+    if (found) found.quantity = (found.quantity || 1) + 1;
+    else cart.push({name: name, price: price, quantity: 1});
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBar();
+    animateAddFeedback(triggerBtn);
+    animateCartCount();
+}
+function addEarthwokDrink() {
+    var type = document.getElementById('earthwokDrinkType').value;
+    addToCart('Fountain Drink (' + type + ')', 1.95);
+}
+function updateCartBar() {
+    var cart = JSON.parse(localStorage.getItem('cart')) || [];
+    var count = cart.reduce(function(s, i) { return s + (i.quantity || 1); }, 0);
+    var total = cart.reduce(function(s, i) { return s + i.price * (i.quantity || 1); }, 0);
+    var bar = document.getElementById('cartBar');
+    document.getElementById('cartCount').textContent = count;
+    if (count > 0) { bar.style.display = 'flex'; document.getElementById('cartBarCount').textContent = count; document.getElementById('cartBarTotal').textContent = '$' + total.toFixed(2); } else bar.style.display = 'none';
+}
+updateCartBar();
+</script>
+
+</body>
+</html>
