@@ -7,6 +7,7 @@ import { createOrder } from '../api/orderApi';
 import { createCheckoutSession } from '../api/paymentApi';
 import { getRestaurants } from '../api/restaurantApi';
 import { getOrderingHoursLabel, isOrderingOpen } from '../utils/orderingHours';
+import { ALLOWED_DORM_CAMPUSES } from '../utils/deliveryZones';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '');
 
@@ -17,7 +18,9 @@ export default function CheckoutPage() {
   const [form, setForm] = useState({
     name: user?.name || '',
     phone: '',
-    address: '',
+    campus: '',
+    building: '',
+    room: '',
     instructions: ''
   });
   const [error, setError] = useState('');
@@ -55,8 +58,8 @@ export default function CheckoutPage() {
       setError('Order must contain items from only one restaurant');
       return;
     }
-    if (!form.name.trim() || !form.phone.trim() || !form.address.trim()) {
-      setError('Please enter name, phone, and delivery address.');
+    if (!form.name.trim() || !form.phone.trim() || !form.campus || !form.building.trim() || !form.room.trim()) {
+      setError('Please enter name, phone, dorm campus, building, and room.');
       return;
     }
     if (orderRestaurant && !isRestaurantOpen) {
@@ -72,7 +75,9 @@ export default function CheckoutPage() {
         restaurantId: singleRestaurantId,
         deliveryName: form.name.trim(),
         deliveryPhone: form.phone.trim(),
-        deliveryAddress: form.address.trim(),
+        deliveryCampus: form.campus,
+        deliveryBuilding: form.building.trim(),
+        deliveryRoom: form.room.trim(),
         deliveryInstructions: form.instructions.trim(),
         items: items.map((item) => ({ menuItemId: item.id, quantity: item.quantity }))
       };
@@ -107,6 +112,9 @@ export default function CheckoutPage() {
       <section className="checkout-grid">
         <div className="checkout-card">
           <h2>Delivery Details</h2>
+          <p className="delivery-zone-note">
+            We currently deliver only to these UConn dorm campuses.
+          </p>
           <div className="delivery-form delivery-form--checkout">
             <label>
               Full name
@@ -125,11 +133,33 @@ export default function CheckoutPage() {
               />
             </label>
             <label>
-              Delivery address
+              Dorm campus
+              <select
+                value={form.campus}
+                onChange={(e) => setForm((prev) => ({ ...prev, campus: e.target.value }))}
+              >
+                <option value="">Select a dorm campus</option>
+                {ALLOWED_DORM_CAMPUSES.map((campus) => (
+                  <option key={campus} value={campus}>
+                    {campus}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <label>
+              Building name
               <input
-                value={form.address}
-                onChange={(e) => setForm((prev) => ({ ...prev, address: e.target.value }))}
-                placeholder="Dorm/building + room"
+                value={form.building}
+                onChange={(e) => setForm((prev) => ({ ...prev, building: e.target.value }))}
+                placeholder="Example: Brock Hall"
+              />
+            </label>
+            <label>
+              Room number
+              <input
+                value={form.room}
+                onChange={(e) => setForm((prev) => ({ ...prev, room: e.target.value }))}
+                placeholder="Example: 214"
               />
             </label>
             <label>

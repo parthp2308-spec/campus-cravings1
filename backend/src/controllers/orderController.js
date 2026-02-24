@@ -6,9 +6,20 @@ const ApiError = require('../utils/ApiError');
 const { loadAndValidateMenuItems } = require('../services/orderService');
 const { isWithinOrderingHours, formatOrderingHours } = require('../utils/orderingHours');
 const { sendOrderNotification } = require('../services/notificationService');
+const { isAllowedDormCampus, buildDeliveryAddress } = require('../utils/deliveryZones');
 
 async function createOrder(req, res) {
-  const { userId, restaurantId, items, deliveryName, deliveryPhone, deliveryAddress, deliveryInstructions } = req.body;
+  const {
+    userId,
+    restaurantId,
+    items,
+    deliveryName,
+    deliveryPhone,
+    deliveryCampus,
+    deliveryBuilding,
+    deliveryRoom,
+    deliveryInstructions
+  } = req.body;
 
   if (req.user.role === 'student' && String(req.user.id) !== String(userId)) {
     throw new ApiError(403, 'Students can only place orders for themselves');
@@ -22,6 +33,9 @@ async function createOrder(req, res) {
   const restaurant = await restaurantModel.getRestaurantById(restaurantId);
   if (!restaurant || !restaurant.is_active) {
     throw new ApiError(404, 'Restaurant not found');
+  }
+  if (!isAllowedDormCampus(deliveryCampus)) {
+    throw new ApiError(400, 'Delivery is available only to supported UConn dorm campuses');
   }
   if (!isWithinOrderingHours(restaurant.name, env.orderingTimeZone)) {
     throw new ApiError(
@@ -42,7 +56,11 @@ async function createOrder(req, res) {
     status: 'pending',
     deliveryName,
     deliveryPhone,
-    deliveryAddress,
+    deliveryAddress: buildDeliveryAddress({
+      campus: deliveryCampus,
+      building: deliveryBuilding,
+      room: deliveryRoom
+    }),
     deliveryInstructions,
     paymentStatus: 'pending',
     subtotalPrice,

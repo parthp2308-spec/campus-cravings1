@@ -1,4 +1,5 @@
 const { body, param } = require('express-validator');
+const { ALLOWED_DORM_CAMPUSES } = require('../utils/deliveryZones');
 
 const createOrderValidator = [
   body('userId').isUUID().withMessage('userId must be UUID'),
@@ -11,10 +12,18 @@ const createOrderValidator = [
     .trim()
     .isLength({ min: 7, max: 30 })
     .withMessage('deliveryPhone must be 7-30 characters'),
-  body('deliveryAddress')
+  body('deliveryCampus')
     .trim()
-    .isLength({ min: 5, max: 255 })
-    .withMessage('deliveryAddress must be 5-255 characters'),
+    .isIn(ALLOWED_DORM_CAMPUSES)
+    .withMessage('deliveryCampus is not in supported dorm campuses'),
+  body('deliveryBuilding')
+    .trim()
+    .isLength({ min: 2, max: 120 })
+    .withMessage('deliveryBuilding must be 2-120 characters'),
+  body('deliveryRoom')
+    .trim()
+    .isLength({ min: 1, max: 30 })
+    .withMessage('deliveryRoom must be 1-30 characters'),
   body('deliveryInstructions')
     .optional({ values: 'falsy' })
     .trim()

@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../Learning HTML"
+		},
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Delivery Serivce"
+	}
+}
