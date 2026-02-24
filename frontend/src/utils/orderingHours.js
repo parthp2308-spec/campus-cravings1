@@ -2,6 +2,7 @@ const ORDERING_TIME_ZONE = 'America/New_York';
 const OPEN_HOUR = 11;
 const COOP_CLOSE_HOUR = 19;
 const DEFAULT_CLOSE_HOUR = 21;
+const BYPASS_ORDERING_HOURS = String(import.meta.env.VITE_BYPASS_ORDERING_HOURS || 'false') === 'true';
 
 function isCoop(restaurantName = '') {
   return restaurantName.trim().toLowerCase() === 'the coop';
@@ -33,6 +34,9 @@ function getCurrentMinutes() {
 }
 
 export function isOrderingOpen(restaurantName) {
+  if (BYPASS_ORDERING_HOURS) {
+    return true;
+  }
   const { openHour, closeHour } = getOrderingHours(restaurantName);
   const current = getCurrentMinutes();
   return current >= openHour * 60 && current <= closeHour * 60;
