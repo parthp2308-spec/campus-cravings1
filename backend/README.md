@@ -45,6 +45,7 @@ Use Stripe CLI while backend is running:
 - Server calculates order totals from DB prices.
 - Delivery fee policy is server-enforced: `$2.99` for subtotal `< $5.00`, otherwise `$3.99`.
 - Ordering windows are server-enforced (ET): The Coop `11:00 AM - 7:00 PM`, all other restaurants `11:00 AM - 9:00 PM`.
+- For testing only, set `BYPASS_ORDERING_HOURS=true` to allow orders at any time.
 - Unavailable items cannot be ordered.
 - Payment status is tracked on orders (`pending|paid|failed`).
 - Orders now include required delivery details (`name`, `phone`, `address`) plus optional `delivery_instructions`.

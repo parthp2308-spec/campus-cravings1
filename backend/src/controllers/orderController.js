@@ -37,7 +37,7 @@ async function createOrder(req, res) {
   if (!isAllowedDormCampus(deliveryCampus)) {
     throw new ApiError(400, 'Delivery is available only to supported UConn dorm campuses');
   }
-  if (!isWithinOrderingHours(restaurant.name, env.orderingTimeZone)) {
+  if (!env.bypassOrderingHours && !isWithinOrderingHours(restaurant.name, env.orderingTimeZone)) {
     throw new ApiError(
       400,
       `${restaurant.name} is currently closed for ordering. Orders are accepted only ${formatOrderingHours(restaurant.name)}.`

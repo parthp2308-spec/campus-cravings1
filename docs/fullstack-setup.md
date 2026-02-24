@@ -69,6 +69,7 @@ Seed includes:
 - Admin: create/update/delete menu items from UI.
 - Pricing: delivery fee auto-applied to each order (`$2.99` under `$5.00`, otherwise `$3.99`), included in totals and Stripe checkout.
 - Ordering windows (ET): The Coop `11:00 AM - 7:00 PM`; all other restaurants `11:00 AM - 9:00 PM`. Backend blocks order creation outside these hours.
+- Testing override: set backend env `BYPASS_ORDERING_HOURS=true` to skip ordering-time checks temporarily.
 - Checkout requires delivery details (name, phone, address) and stores optional delivery instructions.
 - Students can cancel only `pending` and `unpaid` orders; restaurant/admin status transitions are enforced.
 - Order status flow now includes `out_for_delivery`.

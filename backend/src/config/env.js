@@ -19,6 +19,7 @@ const env = {
   rateLimitWindowMs: Number(process.env.RATE_LIMIT_WINDOW_MS || 15 * 60 * 1000),
   rateLimitMax: Number(process.env.RATE_LIMIT_MAX || 200),
   orderingTimeZone: process.env.ORDERING_TIME_ZONE || 'America/New_York',
+  bypassOrderingHours: String(process.env.BYPASS_ORDERING_HOURS || 'false') === 'true',
   frontendUrl: process.env.FRONTEND_URL || 'http://localhost:5173',
   stripeSecretKey: process.env.STRIPE_SECRET_KEY || '',
   stripeWebhookSecret: process.env.STRIPE_WEBHOOK_SECRET || '',
